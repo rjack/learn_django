@@ -1,5 +1,9 @@
 # Django settings for learning project.
 
+import os
+
+PROJECT_DIR = os.path.dirname(__file__)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
