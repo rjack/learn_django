@@ -1,6 +1,6 @@
 from django.template import Context, loader
 from polls.models import Poll
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 
 def index(request):
@@ -14,7 +14,13 @@ def index(request):
 
 
 def detail(request, poll_id):
-	return HttpResponse("Poll %s" % poll_id)
+	try:
+		poll = Poll.objects.get(pk=poll_id)
+	except Poll.DoesNotExist:
+		raise Http404
+	return render_to_response("polls/detail.html", {
+		'poll': poll
+	})
 
 
 def results(request, poll_id):
