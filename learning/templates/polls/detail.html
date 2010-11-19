@@ -1,0 +1,17 @@
+<table>
+	<caption>{{ poll.question }}</caption>
+	<thead>
+		<tr>
+			<th>Question</th>
+			<th>Votes</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for choice in poll.choice_set.all %}
+			<tr>
+				<td>{{ choice.choice }}</td>
+				<td>{{ choice.votes }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
