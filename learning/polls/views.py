@@ -1,4 +1,4 @@
-from django.template import Context, loader
+from django.template import Context, RequestContext, loader
 from polls.models import Poll
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404
@@ -19,7 +19,7 @@ def detail(request, poll_id):
 	poll = get_object_or_404(Poll, pk=poll_id)
 	return render_to_response("polls/detail.html", {
 		'poll': poll
-	})
+	}, context_instance=RequestContext(request))
 
 
 def results(request, poll_id):
