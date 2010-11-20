@@ -9,5 +9,8 @@ urlpatterns = patterns('polls.views',
 	(r'^polls/(?P<poll_id>\d+)/$', 'detail'),
 	(r'^polls/(?P<poll_id>\d+)/results/$', 'results'),
 	(r'^polls/(?P<poll_id>\d+)/vote/$', 'vote'),
+)
+
+urlpatterns += patterns('',
 	(r'^admin/', include(admin.site.urls)),
 )
