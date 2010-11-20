@@ -1,7 +1,11 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="/polls/{{ poll.id }}/vote/" method="post">
-{% csrf_token %}
+{% if not voted %}
+	<form action="/polls/{{ poll.id }}/vote/" method="post">
+	{% csrf_token %}
+{% else %}
+	<em>Thanks for voting!</em>
+{% endif %}
 
 <table>
 	<caption>{{ poll.question }}</caption>
@@ -15,8 +19,8 @@
 		{% for choice in poll.choice_set.all %}
 			<tr>
 				<td>
-					<input type="radio" name="choice" id="choice_{{ forloop.counter }}" value="{{ choice.id }}">
-					<label for="choice_{{ forloop.counter }}">{{ choice.choice }}</label>
+					{% if not voted %}<input type="radio" name="choice" id="choice_{{ forloop.counter }}" value="{{ choice.id }}"> <label for="choice_{{ forloop.counter }}">{{ choice.choice }}</label>
+					{% else %}{{ choice.choice }}{% endif %}
 				</td>
 				<td>{{ choice.votes }}</td>
 			</tr>
@@ -24,4 +28,7 @@
 	</tbody>
 </table>
 
+{% if not voted %}
+	<input type="submit" value="vote">
+{% endif %}
 </form>
