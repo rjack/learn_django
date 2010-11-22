@@ -1,0 +1,22 @@
+<h1>{{ object.question }}</h1>
+<p>Pubblicato il {{ object.pub_date|date }} alle {{ object.pub_date|time }}</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Choice</th>
+			<th>Votes</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for choice in object.choice_set.all %}
+		<tr>
+			<td>{{ choice.choice }}</td>
+			<td>{{ choice.votes }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<a href="{% url poll_detail object.id %}">Vota ancora</a> |
+<a href="{% url poll_list %}">Torna ai poll</a>

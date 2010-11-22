@@ -1,0 +1,18 @@
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<h1>{{ object.question }}</h1>
+<p>Pubblicato il {{ object.pub_date|date }} alle {{ object.pub_date|time }}</p>
+
+<form method="POST" action="{% url poll_vote object.id %}">
+	{% csrf_token %}
+
+	{% for choice in object.choice_set.all %}
+	<li>
+		<input type="radio" value="{{ choice.id }}"name="choice" id="choice_{{ choice.id }}" />
+		<label for="choice_{{ choice.id }}">{{ choice.choice }}</label>
+	</li>
+	{% endfor %}
+	<input type="submit" value="Vota!" />
+</form>
+
+<a href="{% url poll_list %}">Torna ai poll</a>
